@@ -105,9 +105,9 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT); 
   pinMode(GP_ACTIVE_BUZZER, OUTPUT);
   pinMode(GP_RELE_FOOD, OUTPUT);
-  digitalWrite(GP_RELE_FOOD, LOW);
+  digitalWrite(GP_RELE_FOOD, HIGH);
   pinMode(GP_RELE_LUZ, OUTPUT);
-  digitalWrite(GP_RELE_LUZ, LOW);
+  digitalWrite(GP_RELE_LUZ, HIGH);
   
   if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     Serial.println(F("SSD1306 allocation failed"));
@@ -278,13 +278,13 @@ void showDisplay(){
   
   display.setTextSize(2);           
   
-  display.setCursor(40,5); 
+  display.setCursor(40,0); 
   display.println("GlubbY");
   
   display.setTextSize(1);           
 
   display.setTextColor(BLACK, WHITE);  
-  display.setCursor(90,20); 
+  display.setCursor(90,15 ); 
   display.println("V1.0");
  
   display.setTextColor(SSD1306_WHITE);      
@@ -370,21 +370,21 @@ void functionPutFood() {
   tone(GP_ACTIVE_BUZZER, 660, 600); 
   delay(700);
 
-  displayInfo("INFORMACAO", "Alimentando gluby");
-  digitalWrite(GP_RELE_FOOD, HIGH);
-  digitalWrite(GP_RELE_LUZ, HIGH);
+  digitalWrite(GP_RELE_FOOD, LOW);
+  digitalWrite(GP_RELE_LUZ, LOW);
 
   if (MyConfig.timer > 0)
   {
     for (int x = 1 ; x <= MyConfig.timer; x++){
       delay(1000);
       Serial.println(MyConfig.timer - x);
+      displayInfo("INFORMACAO", "Alimentando: "+String(x)+"s");
       
     }
   }
 
-  digitalWrite(GP_RELE_FOOD, LOW);
-  digitalWrite(GP_RELE_LUZ, LOW);
+  digitalWrite(GP_RELE_FOOD, HIGH);
+  digitalWrite(GP_RELE_LUZ, HIGH);
   
 
   tone(GP_ACTIVE_BUZZER, 660, 600); 
